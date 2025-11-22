@@ -1,8 +1,6 @@
 package clothe_management.database;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.DriverManager;
+import java.sql.*;
 
 public class dbConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/javademo_db";

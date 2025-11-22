@@ -1,12 +1,16 @@
 package clothe_management.controller.entity;
 
 abstract class Person {
+    public enum Sex {
+        MALE, FEMALE
+    }
+
     protected String name;
-    protected String sex;
+    protected Sex sex;
     protected String phone;
     protected String address;
 
-    public Person(String name, String sex, String phone, String address) {
+    public Person(String name, Sex sex, String phone, String address) {
         this.name = name;
         this.sex = sex;
         this.phone = phone;
@@ -15,7 +19,7 @@ abstract class Person {
 
     // Setters (chỉ các field có thể thay đổi)
     public void setName(String name) {
-        this.name = name; 
+        this.name = name;
     }
     public void setPhone(String phone) {
         this.phone = phone;
@@ -25,16 +29,16 @@ abstract class Person {
     }
     // sex thường không thay đổi → không dùng setter
     // Getters
-    public String getName() { 
-        return name; 
+    public String getName() {
+        return name;
     }
-    public String getSex() { 
-         return sex; 
+    public Sex getSex() {
+        return sex;
     }
     public String getPhone() {
-        return phone; 
-   }
-    public String getAddress() {
-        return address; 
+        return phone;
     }
- }
+    public String getAddress() {
+        return address;
+    }
+}

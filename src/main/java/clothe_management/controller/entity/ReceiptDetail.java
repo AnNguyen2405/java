@@ -4,10 +4,10 @@ public class ReceiptDetail {
     private final String receiptID;
     private final String productID;
     private int quantity;
-    private double unitSellPrice;
-    private double unitCostPrice;
+    private int unitSellPrice;
+    private int unitCostPrice;
 
-    public ReceiptDetail(String receiptID, String productID, int quantity, double unitSellPrice, double unitCostPrice) {
+    public ReceiptDetail(String receiptID, String productID, int quantity, int unitSellPrice, int unitCostPrice) {
         this.receiptID = receiptID;
         this.productID = productID;
         this.quantity = quantity;
@@ -15,27 +15,27 @@ public class ReceiptDetail {
         this.unitCostPrice = unitCostPrice;
     }
     public String getReceiptID() {
-        return receiptID; 
+        return receiptID;
     }
-    public String getProductID() { 
-        return productID; 
+    public String getProductID() {
+        return productID;
     }
-    public int getQuantity() { 
-        return quantity; 
+    public int getQuantity() {
+        return quantity;
     }
-    public double getUnitSellPrice() { 
-        return unitSellPrice; 
+    public int getUnitSellPrice() {
+        return unitSellPrice;
     }
-    public double getUnitCostPrice() { 
-        return unitCostPrice; 
+    public int getUnitCostPrice() {
+        return unitCostPrice;
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    public void setUnitSellPrice(double unitSellPrice) {
+    public void setUnitSellPrice(int unitSellPrice) {
         this.unitSellPrice = unitSellPrice;
     }
-    public void setUnitCostPrice(double unitCostPrice) {
+    public void setUnitCostPrice(int unitCostPrice) {
         this.unitCostPrice = unitCostPrice;
     }
 }

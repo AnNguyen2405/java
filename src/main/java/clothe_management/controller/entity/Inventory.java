@@ -9,13 +9,14 @@ public class Inventory {
         this.quantity = quantity;
     }
 
-    public String getProductID() { 
-        return productID; 
+    public String getProductID() {
+        return productID;
     }
-    public int getQuantity() { 
-        return quantity; 
+    public int getQuantity() {
+        return quantity;
     }
-    public void setQuantity(int quantity) { 
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }
+

@@ -1,15 +1,22 @@
 package clothe_management.controller.entity;
 import java.util.Date;
 
+import java.util.Date;
+
 public class Receipt {
+    public enum PaymentMethod {
+        CASH,
+        BANKING,
+        CARD
+    }
     private final String receiptID;
     private Date date;
     private final String customerID;
     private final String employeeID;
-    private double amount;
-    private String paymentMethod;
+    private int amount;
+    private PaymentMethod paymentMethod;
 
-    public Receipt(String receiptID, Date date, String customerID, String employeeID, double amount, String paymentMethod) {
+    public Receipt(String receiptID, Date date, String customerID, String employeeID, int amount, PaymentMethod paymentMethod) {
         this.receiptID = receiptID;
         this.date = date;
         this.customerID = customerID;
@@ -19,23 +26,23 @@ public class Receipt {
     }
 
     // Getters
-    public String getReceiptID() { 
+    public String getReceiptID() {
         return receiptID;
     }
-    public Date getDate() { 
-        return date; 
+    public Date getDate() {
+        return date;
     }
-    public String getCustomerID() { 
-        return customerID; 
+    public String getCustomerID() {
+        return customerID;
     }
-    public String getEmployeeID() { 
-        return employeeID; 
+    public String getEmployeeID() {
+        return employeeID;
     }
-    public double getAmount() { 
-        return amount; 
+    public int getAmount() {
+        return amount;
     }
-    public String getPaymentMethod() { 
-        return paymentMethod; 
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
     // Setters
@@ -43,12 +50,13 @@ public class Receipt {
         this.date = date;
     }
 
-    public void setAmount(double amount) { 
-        this.amount = amount; 
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public void setPaymentMethod(String paymentMethod) { 
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 }
+
 
