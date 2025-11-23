@@ -1,9 +1,8 @@
 package clothe_management.controller.entity;
 
+import clothe_management.controller.enumVar.*;
+
 abstract class Person {
-    public enum Sex {
-        MALE, FEMALE
-    }
 
     protected String name;
     protected Sex sex;

@@ -1,12 +1,8 @@
 package clothe_management.controller.entity;
 
+import clothe_management.controller.enumVar.*;
+
 public class Product {
-    public enum Size {
-        NA, S, M, L, XL
-    }
-    public enum Category {
-        MEN, WOMEN, UNISEX, KID
-    }
 
     private final String productID;
     private String name;
@@ -15,9 +11,9 @@ public class Product {
     private String color;
     private Category category;
     private int price;
-    private final Supplier supplier;
+    private final String supplierID;
 
-    public Product(String productID, String name, String description, Size size, String color, Category category, int price, Supplier supplier) {
+    public Product(String productID, String name, String description, Size size, String color, Category category, int price, String supplierID) {
         this.productID = productID;
         this.name = name;
         this.description = description;
@@ -25,7 +21,7 @@ public class Product {
         this.color = color;
         this.category = category;
         this.price = price;
-        this.supplier = supplier;
+        this.supplierID = supplierID;
     }
 
     public String getProductID() {
@@ -49,8 +45,8 @@ public class Product {
     public int getPrice() {
         return price;
     }
-    public Supplier getSupplier() {
-        return supplier;
+    public String getSupplier() {
+        return supplierID;
     }
     public void setDescription(String description) {
         this.description = description;

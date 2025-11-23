@@ -1,11 +1,8 @@
 package clothe_management.controller.entity;
 
+import clothe_management.controller.enumVar.*;
+
 class Employee extends Person {
-    public enum Role {
-        CASHIER,
-        MANAGER,
-        INVENTORY_STAFF
-    }
 
     private final String employeeID;
     private int hours;
