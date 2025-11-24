@@ -4,11 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="259.0" prefWidth="116.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="clothe_management.GUI.HelloController">
+<VBox alignment="CENTER" prefHeight="321.0" prefWidth="461.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clothe_management.GUI.HelloController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label fx:id="welcomeText" />
-    <Button onAction="#onHelloButtonClick" text="Hello!" />
+    <Label fx:id="welcomeText" prefHeight="133.0" prefWidth="374.0" />
+    <Button onAction="#onViewButtonClick" text="View" />
+   <Button onAction="#onInsertButtonClick" text="Insert" />
+   <Button onAction="#onDeleteButtonClick" text="Delete" />
 </VBox>

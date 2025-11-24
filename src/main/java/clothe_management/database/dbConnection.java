@@ -1,11 +1,13 @@
 package clothe_management.database;
 
+import clothe_management.database.customException.DatabaseConnectionException;
+
 import java.sql.*;
 
 public class dbConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/javademo_db";
     private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "@N189pdp";
 
     public Connection connectDatabase()
     {

@@ -1,8 +1,10 @@
 package clothe_management.controller.entity;
 
+import clothe_management.controller.enumVar.*;
+
 public class User extends Person {
 
-    public User(String name, String sex, String phone, String address)
+    public User(String name, Sex sex, String phone, String address)
     {
         super(name,sex,phone,address);
     }

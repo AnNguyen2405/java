@@ -2,7 +2,7 @@ package clothe_management.controller.entity;
 
 import clothe_management.controller.enumVar.*;
 
-class Employee extends Person {
+public class Employee extends Person {
 
     private final String employeeID;
     private int hours;

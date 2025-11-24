@@ -16,7 +16,6 @@ abstract class Person {
         this.address = address;
     }
 
-    // Setters (chỉ các field có thể thay đổi)
     public void setName(String name) {
         this.name = name;
     }

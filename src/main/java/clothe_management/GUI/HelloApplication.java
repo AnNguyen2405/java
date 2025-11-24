@@ -1,6 +1,5 @@
 package clothe_management.GUI;
 
-import clothe_management.controller.dummyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

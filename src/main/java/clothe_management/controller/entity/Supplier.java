@@ -1,14 +1,14 @@
 package clothe_management.controller.entity;
 
 public class Supplier {
-    private final char supplierID;
+    private final String supplierID;
     private String companyName;
     private String contactPerson;
     private String phone;
     private String address;
     private String email;
 
-    public Supplier(char supplierID, String companyName, String contactPerson, String phone, String address, String email) {
+    public Supplier(String supplierID, String companyName, String contactPerson, String phone, String address, String email) {
         this.supplierID = supplierID;
         this.companyName = companyName;
         this.contactPerson = contactPerson;
@@ -18,7 +18,7 @@ public class Supplier {
     }
 
     // Getters
-    public char getSupplierID() {
+    public String getSupplierID() {
         return supplierID;
     }
     public String getCompanyName() {
