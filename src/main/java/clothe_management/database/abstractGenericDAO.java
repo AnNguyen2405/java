@@ -1,21 +1,19 @@
 package clothe_management.database;
 
+import clothe_management.database.customException.DatabaseConnectionException;
 import java.sql.*;
 
 public abstract class abstractGenericDAO<T> implements genericDAO<T> {
-    dbConnection dbconnection = new dbConnection();
+    protected static Connection connection;
 
-    // helper methods
-    // close connection after operations
-    void closeConnection(Connection connection)
+    static
     {
-        if (connection != null) {
-            try {
-                connection.close();
-            }
-            catch (SQLException e){
-                System.err.println(e.getMessage());
-            }
+        try {
+            connection = dbConnection.connectDatabase();
+        } catch(DatabaseConnectionException e)
+        {
+            System.err.println(e.getMessage());
+            throw new RuntimeException("Error occured trying to connect to database", e);
         }
     }
 

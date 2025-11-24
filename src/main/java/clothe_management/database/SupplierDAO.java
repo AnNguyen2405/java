@@ -7,14 +7,12 @@ import clothe_management.database.customException.DatabaseConnectionException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SupplierDAO extends abstractGenericDAO<Supplier>{
+public class SupplierDAO extends abstractGenericDAO<Supplier> implements singleKeyDAO<Supplier>{
     public Supplier findByID(String id){
-        Connection connection = null;
         Supplier supplier = null;
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM supplier WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -38,19 +36,14 @@ public class SupplierDAO extends abstractGenericDAO<Supplier>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return supplier;
     };
 
     public ArrayList<Supplier> getAll(){
-        Connection connection = null;
         ArrayList<Supplier> supplier_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM supplier";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -75,18 +68,13 @@ public class SupplierDAO extends abstractGenericDAO<Supplier>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return supplier_list;
     };
 
     public int insert(Supplier entity){
-        Connection connection = null;
         int addedRow = 0;
         String message = "0 row(s) added. ";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "INSERT INTO supplier(ID, companyName, contactPerson, phone, address, email) " +
                     "VALUES (?,?,?,?,?,?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -106,17 +94,14 @@ public class SupplierDAO extends abstractGenericDAO<Supplier>{
             System.err.println("Database connection error!");
         }
         finally {
-            closeConnection(connection);
         }
         return addedRow;
     };
 
     public int update(Supplier entity){
-        Connection connection = null;
         int updatedRow = 0;
         String message = "0 row(s) updated. ";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "UPDATE supplier SET companyName = ?, contactPerson = ?, phone = ?, address = ?, " +
                     "email = WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -135,18 +120,13 @@ public class SupplierDAO extends abstractGenericDAO<Supplier>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return updatedRow;
     };
 
     public int delete(String id){
-        Connection connection = null;
         int deletedRow = 0;
         String message = "0 rows deleted";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "DELETE FROM supplier where ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -158,9 +138,6 @@ public class SupplierDAO extends abstractGenericDAO<Supplier>{
             System.err.println(message);
         }catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
-        }
-        finally {
-            closeConnection(connection);
         }
         return deletedRow;
     };

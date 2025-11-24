@@ -6,14 +6,12 @@ import clothe_management.database.customException.DatabaseConnectionException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ProductDAO extends abstractGenericDAO<Product> {
+public class ProductDAO extends abstractGenericDAO<Product> implements singleKeyDAO<Product>{
     public Product findByID(String id){
-        Connection connection = null;
         Product product = null;
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM product WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -40,19 +38,14 @@ public class ProductDAO extends abstractGenericDAO<Product> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return product;
     };
 
     public ArrayList<Product> findByName(String name){
-        Connection connection = null;
         ArrayList<Product> product_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM product WHERE name = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
@@ -80,19 +73,14 @@ public class ProductDAO extends abstractGenericDAO<Product> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return product_list;
     };
 
     public ArrayList<Product> getAll(){
-        Connection connection = null;
         ArrayList<Product> product_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
             try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM product";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -119,18 +107,13 @@ public class ProductDAO extends abstractGenericDAO<Product> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return product_list;
     };
 
     public int insert(Product entity){
-        Connection connection = null;
         int addedRow = 0;
         String message = "0 row(s) added. ";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "INSERT INTO product(ID, name, description, size, colour, category, price, supplierID) " +
                     "VALUES (?,?,?,?,?,?,?,?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -151,18 +134,13 @@ public class ProductDAO extends abstractGenericDAO<Product> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return addedRow;
     };
 
     public int update(Product entity){
-        Connection connection = null;
         int updatedRow = 0;
         String message = "0 row(s) updated. ";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "UPDATE product SET name = ?, description = ?, size = ?, colour = ?, " +
                     "category = ?, price = ?, supplierID = ? WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -183,18 +161,13 @@ public class ProductDAO extends abstractGenericDAO<Product> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return updatedRow;
     };
 
     public int delete(String id){
-        Connection connection = null;
         int deletedRow = 0;
         String message = "0 rows deleted";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "DELETE FROM product where ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -206,9 +179,6 @@ public class ProductDAO extends abstractGenericDAO<Product> {
             System.err.println(message);
         }catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
-        }
-        finally {
-            closeConnection(connection);
         }
         return deletedRow;
     };

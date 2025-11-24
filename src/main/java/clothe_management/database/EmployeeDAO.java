@@ -9,12 +9,10 @@ import java.util.ArrayList;
 
 public class EmployeeDAO extends abstractGenericDAO<Employee>{
     public Employee findByID(String id){
-        Connection connection = null;
         Employee employee = null;
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM employee WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -41,19 +39,14 @@ public class EmployeeDAO extends abstractGenericDAO<Employee>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return employee;
     };
 
     public ArrayList<Employee> findByName(String name){
-        Connection connection = null;
         ArrayList<Employee> employee_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM employee WHERE name = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
@@ -80,19 +73,14 @@ public class EmployeeDAO extends abstractGenericDAO<Employee>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return employee_list;
     };
 
     public ArrayList<Employee> getAll(){
-        Connection connection = null;
         ArrayList<Employee> employee_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM Product";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -118,18 +106,13 @@ public class EmployeeDAO extends abstractGenericDAO<Employee>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return employee_list;
     };
 
     public int insert(Employee entity){
-        Connection connection = null;
         String message = "0 row(s) added. ";
         int addedRow = 0;
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "INSERT INTO employee(ID, name, sex, phone, address, num_of_hours, role, salary) " +
                     "VALUES (?,?,?,?,?,?,?,?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -150,18 +133,13 @@ public class EmployeeDAO extends abstractGenericDAO<Employee>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return addedRow;
     };
 
     public int update(Employee entity){
-        Connection connection = null;
         String message = "0 rows updated";
         int updatedRow = 0;
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "UPDATE employee SET name = ?, sex = ?, phone = ?, address = ?, num_of_hours = ?, " +
                     "role = ?, salary = ?  WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -182,18 +160,13 @@ public class EmployeeDAO extends abstractGenericDAO<Employee>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return updatedRow;
     };
 
     public int delete(String id){
-        Connection connection = null;
         String message = "0 rows affected";
         int deletedRow = 0;
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "DELETE FROM employee where ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -205,9 +178,6 @@ public class EmployeeDAO extends abstractGenericDAO<Employee>{
             System.err.println(message);
         }catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
-        }
-        finally {
-            closeConnection(connection);
         }
         return deletedRow;
     };

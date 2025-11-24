@@ -9,12 +9,10 @@ import java.util.ArrayList;
 
 public class InventoryDAO extends abstractGenericDAO<Inventory> {
     public Inventory findByID(String id){
-        Connection connection = null;
         Inventory inventory = null;
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT productID, stockAvailable, name, size FROM inventory i\n" +
                     "WHERE id = ?\n" +
                     "JOIN product p ON p.ID = i.productID;";
@@ -37,9 +35,6 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return inventory;
     };
 
@@ -49,7 +44,6 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT productID, stockAvailable, name, size FROM inventory i\n" +
                     "WHERE name = ?\n" +
                     "JOIN product p ON p.ID = i.productID;";
@@ -73,19 +67,14 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return inventory_list;
     };
 
     public ArrayList<Inventory> getAll(){
-        Connection connection = null;
         ArrayList<Inventory> inventory_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT productID, stockAvailable, name, size FROM inventory i\n" +
                     "JOIN product p ON p.ID = i.productID;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -107,18 +96,13 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return inventory_list;
     };
 
     public int insert(Inventory entity){
-        Connection connection = null;
         int addedRow = 0;
         String message = "0 row(s) added. ";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "INSERT INTO inventory(productID, stockAvailable) " +
                     "VALUES (?,?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -133,18 +117,13 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return addedRow;
     };
 
     public int update(Inventory entity){
-        Connection connection = null;
         int updatedRow = 0;
         String message = "0 row(s) updated. ";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "UPDATE inventory SET stockAvailable = ? WHERE productID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getStockAvailable());
@@ -158,9 +137,6 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return updatedRow;
     };
 
@@ -169,7 +145,6 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
         int deletedRow = 0;
         String message = "0 rows deleted";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "DELETE FROM inventory where productID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -181,9 +156,6 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
             System.err.println(message);
         }catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
-        }
-        finally {
-            closeConnection(connection);
         }
         return deletedRow;
     };

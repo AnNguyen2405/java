@@ -2,6 +2,7 @@ package clothe_management.controller.enumVar;
 
 public enum Category {
     MEN, WOMEN, UNISEX, NONE;
+
     public static Category StringToEnum(String value) {
         Category cat_e = NONE;
         try {

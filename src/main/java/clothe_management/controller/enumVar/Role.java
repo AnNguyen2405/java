@@ -7,7 +7,7 @@ public enum Role {
     NONE;
 
     public static Role StringToEnum(String value) {
-        Role role_e = CASHIER;
+        Role role_e = NONE;
         try {
             role_e = valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {

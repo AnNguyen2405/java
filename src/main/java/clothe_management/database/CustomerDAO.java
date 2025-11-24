@@ -7,14 +7,12 @@ import clothe_management.database.customException.DatabaseConnectionException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAO extends abstractGenericDAO<Customer>{
+public class CustomerDAO extends abstractGenericDAO<Customer> implements singleKeyDAO<Customer>{
     public Customer findByID(String id){
-        Connection connection = null;
         Customer customer = null;
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM customer WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -38,19 +36,14 @@ public class CustomerDAO extends abstractGenericDAO<Customer>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return customer;
     };
 
     public ArrayList<Customer> findByName(String name){
-        Connection connection = null;
         ArrayList<Customer> customer_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM customer WHERE name = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
@@ -75,19 +68,14 @@ public class CustomerDAO extends abstractGenericDAO<Customer>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return customer_list;
     };
 
     public ArrayList<Customer> getAll(){
-        Connection connection = null;
         ArrayList<Customer> customer_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "SELECT * FROM Product";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -112,18 +100,13 @@ public class CustomerDAO extends abstractGenericDAO<Customer>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return customer_list;
     };
 
     public int insert(Customer entity){
-        Connection connection = null;
         String message = "0 row(s) added. ";
         int addedRow = 0;
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "INSERT INTO customer(ID, name, sex, phone, address, points) " +
                     "VALUES (?,?,?,?,?,?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -142,18 +125,13 @@ public class CustomerDAO extends abstractGenericDAO<Customer>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return addedRow;
     };
 
     public int update(Customer entity){
-        Connection connection = null;
         String message = "0 rows updated";
         int updatedRow = 0;
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "UPDATE customer SET name = ?, sex = ?, phone = ?, address = ?, " +
                     "points = ? WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -172,18 +150,13 @@ public class CustomerDAO extends abstractGenericDAO<Customer>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return updatedRow;
     };
 
     public int updatePoint(Customer entity, int point){
-        Connection connection = null;
         String message = "0 row(s) updated";
         int updatedRow = 0;
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "UPDATE customer SET points = ? WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, point);
@@ -197,18 +170,13 @@ public class CustomerDAO extends abstractGenericDAO<Customer>{
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-            closeConnection(connection);
-        }
         return updatedRow;
     };
 
     public int delete(String id){
-        Connection connection = null;
         String message = "0 rows affected";
         int deletedRow = 0;
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "DELETE FROM customer where ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -220,9 +188,6 @@ public class CustomerDAO extends abstractGenericDAO<Customer>{
             System.err.println(message);
         }catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
-        }
-        finally {
-            closeConnection(connection);
         }
         return deletedRow;
     };

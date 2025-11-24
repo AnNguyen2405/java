@@ -1,21 +1,17 @@
 package clothe_management.controller.entity;
 
-import java.util.Date;
-
+import java.sql.Timestamp;
+import clothe_management.controller.enumVar.*;
 public class Receipt {
-    public enum PaymentMethod {
-        CASH,
-        BANKING,
-        CARD
-    }
+
     private final String receiptID;
-    private Date date;
+    private Timestamp date;
     private final String customerID;
     private final String employeeID;
     private int amount;
     private PaymentMethod paymentMethod;
 
-    public Receipt(String receiptID, Date date, String customerID, String employeeID, int amount, PaymentMethod paymentMethod) {
+    public Receipt(String receiptID, Timestamp date, String customerID, String employeeID, int amount, PaymentMethod paymentMethod) {
         this.receiptID = receiptID;
         this.date = date;
         this.customerID = customerID;
@@ -28,7 +24,7 @@ public class Receipt {
     public String getReceiptID() {
         return receiptID;
     }
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
     public String getCustomerID() {
@@ -45,7 +41,7 @@ public class Receipt {
     }
 
     // Setters
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
