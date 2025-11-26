@@ -2,6 +2,7 @@ package clothe_management.controller.entity;
 
 import java.sql.Timestamp;
 import clothe_management.controller.enumVar.*;
+
 public class Receipt {
 
     private final String receiptID;

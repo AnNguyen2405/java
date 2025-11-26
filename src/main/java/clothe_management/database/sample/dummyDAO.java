@@ -8,7 +8,7 @@ import clothe_management.controller.enumVar.*;
 import clothe_management.database.customException.DatabaseConnectionException;
 import clothe_management.database.dbConnection;
 
-public class dummyDAO {
+public class dummyDAO extends dummyAbstractDAO{
     dbConnection dbconnection;
 
     public dummyDAO()
@@ -17,10 +17,8 @@ public class dummyDAO {
     }
 
     public ArrayList<User> userRetrieve() {
-        Connection connection = null;
         ArrayList<User> userlist = new ArrayList<User>();
         try {
-            connection = dbconnection.connectDatabase();
             Sex sex_e = Sex.MALE;
             String sql = "SELECT * FROM user";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -44,22 +42,13 @@ public class dummyDAO {
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                }
-            }
         }
         return userlist;
     }
 
     public String insert(User entity){
-        Connection connection = null;
         String message = "0 rows affected.";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "INSERT INTO user(name,sex,phone,address) " +
                     String.format("VALUES ('%s','%s','%s','%s')",entity.getName(), entity.getSex(),
                             entity.getPhone(), entity.getAddress()) ;
@@ -77,22 +66,13 @@ public class dummyDAO {
             }
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                }
-            }
         }
         return message;
     };
 
     public String delete(String id){
-        Connection connection = null;
         String message = "0 row deleted.";
         try {
-            connection = dbconnection.connectDatabase();
             String sql = "DELETE FROM user where name = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
@@ -103,13 +83,6 @@ public class dummyDAO {
             System.err.println(e.getMessage());
         }catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                }
-            }
         }
         return message;
     };

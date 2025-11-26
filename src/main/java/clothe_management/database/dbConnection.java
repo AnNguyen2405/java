@@ -14,6 +14,8 @@ public class dbConnection {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println(connection);
+                System.out.println("System database connected successfully!");
             } catch (SQLException e) {
                 String message = "Error occured during connection.\nPlease check your credentials for: " + URL;
                 throw new DatabaseConnectionException(message, e);
@@ -29,6 +31,8 @@ public class dbConnection {
             try {
                 connection.close();
                 connection = null;
+                System.out.println(connection);
+                System.out.println("System database connection closed successfully!");
             }
             catch (SQLException e){
                 System.err.println(e.getMessage());

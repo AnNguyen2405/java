@@ -1,13 +1,14 @@
 package clothe_management.controller.entity;
-import java.util.Date;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import clothe_management.controller.enumVar.*;
+
 public class Receiving {
     private final String receivingID;
-    private final char supplierID;
+    private final String supplierID;
     private final String employeeID;
-    private Date date;
-    public Receiving(String receivingID, char supplierID, String employeeID, Date date) {
+    private Timestamp date;
+    public Receiving(String receivingID, String supplierID, String employeeID, Timestamp date) {
         this.receivingID = receivingID;
         this.supplierID = supplierID;
         this.employeeID = employeeID;
@@ -16,16 +17,16 @@ public class Receiving {
     public String getReceivingID() {
         return receivingID;
     }
-    public char getSupplierID() {
+    public String getSupplierID() {
         return supplierID;
     }
     public String getEmployeeID() {
         return employeeID;
     }
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 }
