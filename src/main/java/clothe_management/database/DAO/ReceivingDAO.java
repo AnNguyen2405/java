@@ -1,32 +1,28 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
-import clothe_management.controller.entity.Supplier;
-import clothe_management.controller.entity.Supplier;
-import clothe_management.controller.enumVar.*;
+import clothe_management.controller.entity.Receiving;
 import clothe_management.database.customException.DatabaseConnectionException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SupplierDAO extends abstractGenericDAO<Supplier> implements singleKeyDAO<Supplier>{
-    public Supplier findByID(String id){
-        Supplier supplier = null;
+public class ReceivingDAO extends abstractGenericDAO<Receiving> implements singleKeyDAO<Receiving>{
+    public Receiving findByID(String id){
+        Receiving receiving = null;
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            String sql = "SELECT * FROM supplier WHERE ID = ?";
+            String sql = "SELECT * FROM receiving WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String current_ID = resultSet.getString("ID");
-                String current_name = resultSet.getString("name");
-                String current_contactPerson = resultSet.getString("contactPerson");
-                String current_phone = resultSet.getString("phone");
-                String current_address = resultSet.getString("address");
-                String current_email = resultSet.getString("email");
-                supplier = new Supplier(current_ID, current_name, current_contactPerson,
-                        current_phone, current_address, current_email);
+                String current_receivingID = resultSet.getString("ID");
+                String current_supplierID = resultSet.getString("supplierID");
+                String current_employeeID = resultSet.getString("employeeID");
+                Timestamp current_date = resultSet.getTimestamp("date");
+                receiving = new Receiving(current_receivingID,  current_supplierID,
+                        current_employeeID, current_date);
                 rowCount++;
             }
             message = Integer.toString(rowCount) + " row(s) have been found. ";
@@ -36,29 +32,26 @@ public class SupplierDAO extends abstractGenericDAO<Supplier> implements singleK
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        return supplier;
+        return receiving;
     };
 
-    public ArrayList<Supplier> getAll(){
-        ArrayList<Supplier> supplier_list = new ArrayList<>();
+    public ArrayList<Receiving> getAll(){
+        ArrayList<Receiving> receiving_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            String sql = "SELECT * FROM supplier";
+            String sql = "SELECT * FROM receiving";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String current_ID = resultSet.getString("ID");
-                String current_name = resultSet.getString("name");
-                String current_contactPerson = resultSet.getString("contactPerson");
-                String current_phone = resultSet.getString("phone");
-                String current_address = resultSet.getString("address");
-                String current_email = resultSet.getString("email");
-                Supplier supplier = new Supplier(current_ID, current_name, current_contactPerson,
-                        current_phone, current_address, current_email);
-                supplier_list.add(supplier);
-                rowCount++;
+                String current_receivingID = resultSet.getString("ID");
+                String current_supplierID = resultSet.getString("supplierID");
+                String current_employeeID = resultSet.getString("employeeID");
+                Timestamp current_date = resultSet.getTimestamp("date");
+                Receiving receiving = new Receiving(current_receivingID,  current_supplierID,
+                        current_employeeID, current_date);
+                receiving_list.add(receiving);
             }
             message = Integer.toString(rowCount) + " row(s) have been found. ";
         }
@@ -68,22 +61,20 @@ public class SupplierDAO extends abstractGenericDAO<Supplier> implements singleK
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        return supplier_list;
+        return receiving_list;
     };
 
-    public int insert(Supplier entity){
+    public int insert(Receiving entity){
         int addedRow = 0;
         String message = "0 row(s) added. ";
         try {
-            String sql = "INSERT INTO supplier(ID, companyName, contactPerson, phone, address, email) " +
-                    "VALUES (?,?,?,?,?,?)" ;
+            String sql = "INSERT INTO receiving(ID, supplierID, employeeID,date) " +
+                    "VALUES (?,?,?,?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, entity.getSupplierID());
-            preparedStatement.setString(2, entity.getCompanyName());
-            preparedStatement.setString(3, entity.getContactPerson());
-            preparedStatement.setString(4, entity.getPhone());
-            preparedStatement.setString(5, entity.getAddress());
-            preparedStatement.setString(6, entity.getEmail());
+            preparedStatement.setString(1, entity.getReceivingID());
+            preparedStatement.setString(2, entity.getSupplierID());
+            preparedStatement.setString(3, entity.getEmployeeID());
+            preparedStatement.setTimestamp(4, entity.getDate());
             addedRow = preparedStatement.executeUpdate();
             message = Integer.toString(addedRow) + " row(s) added. ";
         }
@@ -93,24 +84,20 @@ public class SupplierDAO extends abstractGenericDAO<Supplier> implements singleK
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        finally {
-        }
         return addedRow;
     };
 
-    public int update(Supplier entity){
+    public int update(Receiving entity){
         int updatedRow = 0;
         String message = "0 row(s) updated. ";
         try {
-            String sql = "UPDATE supplier SET companyName = ?, contactPerson = ?, phone = ?, address = ?, " +
-                    "email = WHERE ID = ?";
+            String sql = "UPDATE receiving SET supplier = ?, employeeID = ?, date = ?" +
+                    "WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, entity.getCompanyName());
-            preparedStatement.setString(2, entity.getContactPerson());
-            preparedStatement.setString(3, entity.getPhone());
-            preparedStatement.setString(4, entity.getAddress());
-            preparedStatement.setString(5, entity.getEmail());
-            preparedStatement.setString(6, entity.getSupplierID());
+            preparedStatement.setString(1, entity.getSupplierID());
+            preparedStatement.setString(2, entity.getEmployeeID());
+            preparedStatement.setTimestamp(3, entity.getDate());
+            preparedStatement.setString(4, entity.getReceivingID());
             updatedRow = preparedStatement.executeUpdate();
             message = Integer.toString(updatedRow) + " row(s) updated. ";
         }
@@ -125,9 +112,9 @@ public class SupplierDAO extends abstractGenericDAO<Supplier> implements singleK
 
     public int delete(String id){
         int deletedRow = 0;
-        String message = "0 rows deleted";
+        String message = "0 row(s) deleted";
         try {
-            String sql = "DELETE FROM supplier where ID = ?";
+            String sql = "DELETE FROM receiving where ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
             deletedRow = preparedStatement.executeUpdate();

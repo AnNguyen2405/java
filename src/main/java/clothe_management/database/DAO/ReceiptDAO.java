@@ -1,30 +1,32 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
-import clothe_management.controller.entity.Receiving;
+import clothe_management.controller.entity.Receipt;
 import clothe_management.controller.enumVar.*;
 import clothe_management.database.customException.DatabaseConnectionException;
-
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ReceivingDAO extends abstractGenericDAO<Receiving> implements singleKeyDAO<Receiving>{
-    public Receiving findByID(String id){
-        Receiving receiving = null;
+public class ReceiptDAO extends abstractGenericDAO<Receipt> implements singleKeyDAO<Receipt>{
+    public Receipt findByID(String id){
+        Receipt receipt = null;
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            String sql = "SELECT * FROM receiving WHERE ID = ?";
+            String sql = "SELECT * FROM receipt WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String current_receivingID = resultSet.getString("ID");
-                String current_supplierID = resultSet.getString("supplierID");
-                String current_employeeID = resultSet.getString("employeeID");
+                String current_receiptID = resultSet.getString("ID");
                 Timestamp current_date = resultSet.getTimestamp("date");
-                receiving = new Receiving(current_receivingID,  current_supplierID,
-                        current_employeeID, current_date);
+                String current_customer = resultSet.getString("customerID");
+                String current_employeeID = resultSet.getString("employeeID");
+                int current_totalAmount = resultSet.getInt("total_amount");
+                String current_paymentMethod = resultSet.getString("payment_method");
+                receipt = new Receipt(current_receiptID, current_date, current_customer,
+                        current_employeeID, current_totalAmount,
+                        PaymentMethod.StringToEnum(current_paymentMethod));
                 rowCount++;
             }
             message = Integer.toString(rowCount) + " row(s) have been found. ";
@@ -34,26 +36,29 @@ public class ReceivingDAO extends abstractGenericDAO<Receiving> implements singl
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        return receiving;
+        return receipt;
     };
 
-    public ArrayList<Receiving> getAll(){
-        ArrayList<Receiving> receiving_list = new ArrayList<>();
+    public ArrayList<Receipt> getAll(){
+        ArrayList<Receipt> receipt_list = new ArrayList<>();
         int rowCount = 0;
         String message = "0 row(s) have been found";
         try {
-            String sql = "SELECT * FROM receiving";
+            String sql = "SELECT * FROM receipt";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String current_receivingID = resultSet.getString("ID");
-                String current_supplierID = resultSet.getString("supplierID");
-                String current_employeeID = resultSet.getString("employeeID");
+                String current_receiptID = resultSet.getString("ID");
                 Timestamp current_date = resultSet.getTimestamp("date");
-                Receiving receiving = new Receiving(current_receivingID,  current_supplierID,
-                        current_employeeID, current_date);
-                receiving_list.add(receiving);
+                String current_customer = resultSet.getString("customerID");
+                String current_employeeID = resultSet.getString("employeeID");
+                int current_totalAmount = resultSet.getInt("total_amount");
+                String current_paymentMethod = resultSet.getString("payment_method");
+                Receipt receipt = new Receipt(current_receiptID, current_date, current_customer,
+                        current_employeeID, current_totalAmount,
+                        PaymentMethod.StringToEnum(current_paymentMethod));
+                receipt_list.add(receipt);
             }
             message = Integer.toString(rowCount) + " row(s) have been found. ";
         }
@@ -63,20 +68,22 @@ public class ReceivingDAO extends abstractGenericDAO<Receiving> implements singl
         } catch (DatabaseConnectionException e) {
             System.err.println("Database connection error!");
         }
-        return receiving_list;
+        return receipt_list;
     };
 
-    public int insert(Receiving entity){
+    public int insert(Receipt entity){
         int addedRow = 0;
         String message = "0 row(s) added. ";
         try {
-            String sql = "INSERT INTO receiving(ID, supplierID, employeeID,date) " +
-                    "VALUES (?,?,?,?)" ;
+            String sql = "INSERT INTO receipt(ID, date, customerID, employeeID, total_amount, payment_method) " +
+                    "VALUES (?,?,?,?,?,?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, entity.getReceivingID());
-            preparedStatement.setString(2, entity.getSupplierID());
-            preparedStatement.setString(3, entity.getEmployeeID());
-            preparedStatement.setTimestamp(4, entity.getDate());
+            preparedStatement.setString(1, entity.getReceiptID());
+            preparedStatement.setTimestamp(2, entity.getDate());
+            preparedStatement.setString(3, entity.getCustomerID());
+            preparedStatement.setString(4, entity.getEmployeeID());
+            preparedStatement.setInt(5, entity.getAmount());
+            preparedStatement.setString(6, entity.getPaymentMethod().name());
             addedRow = preparedStatement.executeUpdate();
             message = Integer.toString(addedRow) + " row(s) added. ";
         }
@@ -89,17 +96,19 @@ public class ReceivingDAO extends abstractGenericDAO<Receiving> implements singl
         return addedRow;
     };
 
-    public int update(Receiving entity){
+    public int update(Receipt entity){
         int updatedRow = 0;
         String message = "0 row(s) updated. ";
         try {
-            String sql = "UPDATE receiving SET supplier = ?, employeeID = ?, date = ?" +
-                    "WHERE ID = ?";
+            String sql = "UPDATE receipt SET ID = ?, date = ?, customerID = ?, employeeID = ?, " +
+                    "total_amount = ?, payment_method = ? WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, entity.getSupplierID());
-            preparedStatement.setString(2, entity.getEmployeeID());
-            preparedStatement.setTimestamp(3, entity.getDate());
-            preparedStatement.setString(4, entity.getReceivingID());
+            preparedStatement.setTimestamp(1, entity.getDate());
+            preparedStatement.setString(2, entity.getCustomerID());
+            preparedStatement.setString(3, entity.getEmployeeID());
+            preparedStatement.setInt(4, entity.getAmount());
+            preparedStatement.setString(5, entity.getPaymentMethod().name());
+            preparedStatement.setString(6, entity.getReceiptID());
             updatedRow = preparedStatement.executeUpdate();
             message = Integer.toString(updatedRow) + " row(s) updated. ";
         }
@@ -113,10 +122,11 @@ public class ReceivingDAO extends abstractGenericDAO<Receiving> implements singl
     };
 
     public int delete(String id){
+        Connection connection = null;
         int deletedRow = 0;
-        String message = "0 row(s) deleted";
+        String message = "0 rows deleted";
         try {
-            String sql = "DELETE FROM receiving where ID = ?";
+            String sql = "DELETE FROM receipt where ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
             deletedRow = preparedStatement.executeUpdate();

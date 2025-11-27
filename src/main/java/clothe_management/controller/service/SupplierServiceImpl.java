@@ -1,7 +1,7 @@
 package clothe_management.controller.service;
 
 import clothe_management.controller.entity.Supplier;
-import clothe_management.database.SupplierDAO;
+import clothe_management.database.DAO.SupplierDAO;
 
 import java.util.List;
 public class SupplierServiceImpl implements SupplierService {

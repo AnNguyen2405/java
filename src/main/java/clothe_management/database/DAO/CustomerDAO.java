@@ -1,9 +1,8 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 import clothe_management.controller.entity.Customer;
 import clothe_management.controller.enumVar.*;
 import clothe_management.database.customException.DatabaseConnectionException;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -129,7 +128,7 @@ public class CustomerDAO extends abstractGenericDAO<Customer> implements singleK
     };
 
     public int update(Customer entity){
-        String message = "0 rows updated";
+        String message = "0 row(s) updated";
         int updatedRow = 0;
         try {
             String sql = "UPDATE customer SET name = ?, sex = ?, phone = ?, address = ?, " +

@@ -2,8 +2,8 @@ package clothe_management.controller.service;
 
 import clothe_management.controller.entity.Receiving;
 import clothe_management.controller.entity.ReceivingDetail;
-import clothe_management.database.ReceivingDAO;
-import clothe_management.database.ReceivingDetailDAO;
+import clothe_management.database.DAO.ReceivingDAO;
+import clothe_management.database.DAO.ReceivingDetailDAO;
 import java.util.List;
 
 public class ReceivingServiceImpl implements ReceivingService {

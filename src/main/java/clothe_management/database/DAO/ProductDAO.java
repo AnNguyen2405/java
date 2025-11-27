@@ -1,4 +1,4 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 import clothe_management.controller.entity.Product;
 import clothe_management.controller.enumVar.*;

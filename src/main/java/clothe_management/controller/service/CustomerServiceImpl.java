@@ -1,8 +1,8 @@
 package clothe_management.controller.service;
 
 import clothe_management.controller.entity.Customer;
-import clothe_management.database.CustomerDAO;
-import java.util.ArrayList;
+import clothe_management.database.DAO.CustomerDAO;
+
 import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {

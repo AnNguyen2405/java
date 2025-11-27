@@ -1,4 +1,4 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 import java.util.ArrayList;
 

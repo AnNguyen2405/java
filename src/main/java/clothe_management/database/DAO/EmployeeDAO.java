@@ -1,9 +1,8 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 import clothe_management.controller.entity.Employee;
 import clothe_management.controller.enumVar.*;
 import clothe_management.database.customException.DatabaseConnectionException;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -181,8 +180,4 @@ public class EmployeeDAO extends abstractGenericDAO<Employee>{
         }
         return deletedRow;
     };
-
-    public int calculateSalary(Employee entity) {
-        return 0;
-    }
 }

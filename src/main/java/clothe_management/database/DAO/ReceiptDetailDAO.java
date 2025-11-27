@@ -1,8 +1,7 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 import clothe_management.controller.entity.ReceiptDetail;
 import clothe_management.database.customException.DatabaseConnectionException;
-
 import java.sql.*;
 import java.util.ArrayList;
 

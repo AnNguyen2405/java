@@ -1,6 +1,6 @@
 package clothe_management.controller.service;
 
-import clothe_management.database.ReceivingDetailDAO;
+import clothe_management.database.DAO.ReceivingDetailDAO;
 import clothe_management.controller.entity.ReceivingDetail;
 import java.util.List;
 

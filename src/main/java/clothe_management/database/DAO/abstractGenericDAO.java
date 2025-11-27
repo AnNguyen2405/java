@@ -1,6 +1,7 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 import clothe_management.database.customException.DatabaseConnectionException;
+import clothe_management.database.dbConnection;
 import java.sql.*;
 
 public abstract class abstractGenericDAO<T> implements genericDAO<T> {
@@ -13,7 +14,7 @@ public abstract class abstractGenericDAO<T> implements genericDAO<T> {
         } catch(DatabaseConnectionException e)
         {
             System.err.println(e.getMessage());
-            throw new RuntimeException("Error occured trying to connect to database", e);
+            throw new RuntimeException("Error occured trying to connect to database:", e);
         }
     }
 

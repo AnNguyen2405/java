@@ -1,9 +1,8 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 import clothe_management.controller.entity.Inventory;
 import clothe_management.controller.enumVar.*;
 import clothe_management.database.customException.DatabaseConnectionException;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -143,7 +142,7 @@ public class InventoryDAO extends abstractGenericDAO<Inventory> {
     public int delete(String id){
         Connection connection = null;
         int deletedRow = 0;
-        String message = "0 rows deleted";
+        String message = "0 row(s) deleted";
         try {
             String sql = "DELETE FROM inventory where productID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

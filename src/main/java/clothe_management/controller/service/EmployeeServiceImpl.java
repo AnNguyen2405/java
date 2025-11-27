@@ -1,8 +1,8 @@
 package clothe_management.controller.service;
 
 import clothe_management.controller.entity.Employee;
-import clothe_management.database.EmployeeDAO;
-import java.util.ArrayList;
+import clothe_management.database.DAO.EmployeeDAO;
+
 import java.util.List;
 
 public class EmployeeServiceImpl implements EmployeeService {

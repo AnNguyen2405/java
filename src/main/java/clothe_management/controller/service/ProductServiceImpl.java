@@ -1,7 +1,7 @@
 package clothe_management.controller.service;
 
 import clothe_management.controller.entity.Product;
-import clothe_management.database.ProductDAO;
+import clothe_management.database.DAO.ProductDAO;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {

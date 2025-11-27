@@ -1,4 +1,4 @@
-package clothe_management.database;
+package clothe_management.database.DAO;
 
 public interface singleKeyDAO<T> {
     // Single key methods
