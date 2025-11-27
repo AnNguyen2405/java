@@ -5,8 +5,8 @@ import java.sql.*;
 
 public class dbConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/javademo_db";
-    private static final String USER = "root";
-    private static final String PASSWORD = "@N189pdp";
+    private static final String USER = "";
+    private static final String PASSWORD = "";
     private static Connection connection;
 
     public static Connection connectDatabase()
